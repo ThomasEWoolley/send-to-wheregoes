@@ -9,7 +9,7 @@ SOURCE=ROOT/'extension'
 FILES=('manifest.json','background.js','wheregoes-fill.js','popup.html','popup.js','style.css','icon.svg')
 manifest=json.loads((SOURCE/'manifest.json').read_text(encoding='utf-8'))
 version=manifest['version']
-expected='https://thomaswoolley.co.uk/send-to-wheregoes/updates.json'
+expected='https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json'
 assert manifest['browser_specific_settings']['gecko']['update_url']==expected
 assert manifest['browser_specific_settings']['gecko']['id']=='send-to-wheregoes@thomasewoolley.github.io'
 assert json.loads((ROOT/'docs'/'updates.json').read_text())['addons'].get(manifest['browser_specific_settings']['gecko']['id']) is not None

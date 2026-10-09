@@ -14,10 +14,12 @@
 - JavaScript syntax checks: passed for the original generated source.
 - Build script: \`python scripts/build_extension.py\`.
 - Output: \`dist/send-to-wheregoes-1.2.1-unsigned.zip\`.
-- SHA-256 of original package: \`e87795b2c03a69c8d36c102a110c66b85cb1283b91116b38c99f17be41f2cb88\`.
+- Rebuild the submitted ZIP and record its SHA-256 using `python scripts/build_extension.py` after checkout. The original pre-audit checksum is superseded by the new update URL.
 - ZIP integrity check: passed.
 - Mozilla review and signature: **outstanding**.
 - Real Firefox and live WhereGoes tests: **outstanding**.
-- Project GitHub Pages update hosting: **requires activation and verification**.
+- GitHub Pages: deployed, but the inherited custom domain failed certificate validation. Manifest update URL now uses GitHub's HTTPS raw-file service.
 
 Archive bytes can vary with the Python/zlib toolchain despite identical source contents. The source and build steps are authoritative. No third-party package or licence has been added.
+
+The update URL was corrected before Mozilla submission following a real HTTPS certificate failure on the custom domain. This does not alter the extension's redirect handling.

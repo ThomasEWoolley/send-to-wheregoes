@@ -18,7 +18,7 @@ test('newly submitted add-ons declare transmitted URL data', () => {
   assert(Number.parseInt(gecko.strict_min_version, 10) >= 140);
 });
 test('unlisted updates use stable HTTPS manifest URL', () => {
-  assert.equal(gecko.update_url, 'https://thomaswoolley.co.uk/send-to-wheregoes/updates.json');
+  assert.equal(gecko.update_url, 'https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json');
   assert.equal(new URL(gecko.update_url).protocol, 'https:');
 });
 test('the extension cannot access arbitrary destination websites', () => {

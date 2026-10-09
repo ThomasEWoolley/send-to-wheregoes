@@ -35,7 +35,7 @@ The ZIP is **unsigned** and is not permanently installable in standard Firefox. 
 
 The add-on has a stable ID of `send-to-wheregoes@thomasewoolley.github.io`, with a declared future update manifest:
 
-`https://thomaswoolley.co.uk/send-to-wheregoes/updates.json`
+`https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json`
 
 GitHub Pages must still be activated for this repository using **Settings → Pages → Deploy from a branch → main → /docs**. The owner's separate user website uses the custom domain `thomaswoolley.co.uk`, so verify the actual project Pages URL and its HTTPS response before submitting the extension. The current `docs/updates.json` contains no releases, correctly avoiding the publication of an unsigned update. Any future `update_link` must point to a Mozilla-signed XPI.
 
@@ -48,3 +48,7 @@ The extension requests only `menus`, `activeTab` and access to `https://wheregoe
 ## Status
 
 Source release candidate **1.2.1**. Browser integration and Mozilla signing remain outstanding. Any GitHub Pages URL requires deployment and verification. Public source visibility does not itself confer an open-source licence; no licence has been chosen on the owner's behalf.
+
+## Automated verification
+
+The [GitHub Actions audit](.github/workflows/audit.yml) runs the Node tests, rebuilds the unsigned archive and checks the public update manifest and privacy notice from a hosted runner. The check is intentionally strict about valid HTTPS certificates. Mozilla signing and a real Firefox integration test remain separate requirements.

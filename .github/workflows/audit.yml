@@ -33,10 +33,10 @@ jobs:
           from urllib.request import urlopen
           from urllib.error import HTTPError, URLError
 
-          root = "https://thomaswoolley.co.uk/send-to-wheregoes/"
+          root = "https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/"
           for name, token in [
-              ("updates.json", b"send-to-wheregoes@thomasewoolley.github.io"),
-              ("privacy.html", b"Send to WhereGoes"),
+              ("docs/updates.json", b"send-to-wheregoes@thomasewoolley.github.io"),
+              ("PRIVACY.md", b"Send to WhereGoes"),
           ]:
               url = root + name
               for attempt in range(5):

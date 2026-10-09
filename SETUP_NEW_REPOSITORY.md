@@ -1,24 +1,22 @@
-# One-time deployment and Mozilla signing
+# Hosting and Mozilla signing
 
-The project repository exists at <https://github.com/ThomasEWoolley/send-to-wheregoes>. It is deliberately separate from the owner's personal website repository.
+The repository is <https://github.com/ThomasEWoolley/send-to-wheregoes>. GitHub Pages was enabled and deployed on 9 October 2026. **The custom domain's TLS certificate currently does not validate** and must not be used as the Firefox update endpoint. To avoid affecting the personal website, the signed add-on will use a GitHub-hosted update manifest:
 
-## Activate GitHub Pages
+https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json
 
-1. Open <https://github.com/ThomasEWoolley/send-to-wheregoes/settings/pages>.
-2. Under **Build and deployment**, select **Deploy from a branch**, branch **main**, folder **/docs** and click **Save**.
-3. Wait for deployment. Consult the URL shown in the Pages settings and verify public HTTPS access to the expected files:
-   - https://thomaswoolley.co.uk/send-to-wheregoes/updates.json
-   - https://thomaswoolley.co.uk/send-to-wheregoes/privacy.html
-4. The first URL must show JSON with the stable add-on ID and an empty \`updates\` array; the second should display the privacy notice. The custom domain of the account's user website can affect project-site routing; do not assume these URLs work until checked.
+Privacy notice: https://github.com/ThomasEWoolley/send-to-wheregoes/blob/main/PRIVACY.md
 
-This GitHub connector can write source files but does not currently expose the repository administration action required to enable Pages. The owner must perform that one settings change.
+## Before Mozilla submission
 
-## Sign with Mozilla
+1. Check the [Actions audit](https://github.com/ThomasEWoolley/send-to-wheregoes/actions) succeeds. It tests the extension, builds the ZIP and verifies both remote HTTPS URLs from a GitHub runner.
+2. Run `node tests/run-tests.cjs` and `python scripts/build_extension.py` from the repository root, using Node.js 18+ and Python 3.9+.
+3. Submit `dist/send-to-wheregoes-1.2.1-unsigned.zip` to <https://addons.mozilla.org/developers/> as an **unlisted** extension. Download and install the Mozilla-signed `.xpi`.
+4. Test the extension in a real Firefox installation against the current WhereGoes form.
 
-Run \`node tests/run-tests.cjs\` and \`python scripts/build_extension.py\`. Submit \`dist/send-to-wheregoes-1.2.1-unsigned.zip\` to <https://addons.mozilla.org/developers/> as an **unlisted extension**. Download the Mozilla-signed \`.xpi\` and install it using Firefox Add-ons Manager. A source ZIP is not a signed installation package.
+## Signed updates
 
-## Publish later versions
+When Mozilla signs a later version, upload that signed XPI to `docs/` in this repository and add a corresponding version and absolute HTTPS `update_link` to `docs/updates.json`. Use the independent `raw.githubusercontent.com` host for the XPI file. Never publish unsigned ZIP/XPI files as Firefox updates. Keep the add-on ID and `update_url` fixed for existing installations.
 
-After Mozilla signs a newer version, host the signed XPI in \`docs/\` and update \`docs/updates.json\` with its new version number and HTTPS download address. Do **not** serve unsigned XPI files as updates. Keep the same extension ID and update URL.
+## Old website folder
 
-The original website repository has provisional old update and privacy files. Do not remove them until the new hosting is verified and any installed clients using that address have been accounted for.
+The old provisional hosting folder remains in the personal website repository. Do not delete it without checking whether any installed client still depends on the old update manifest.

@@ -20,6 +20,6 @@
 
 **Privacy notice:** https://thomaswoolley.co.uk/send-to-wheregoes/privacy.html
 
-**Declared update manifest:** https://thomaswoolley.co.uk/send-to-wheregoes/updates.json
+**Declared update manifest:** https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json
 
 The public URLs depend on GitHub Pages activation and require a live HTTPS check. Mozilla determines policy compliance and signing eligibility.

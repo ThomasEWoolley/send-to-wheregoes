@@ -33,7 +33,7 @@ The tests use built-in Node.js modules and simulate the context menu, URL valida
 - Extension version: \`1.2.1\`.
 - Manifest root: \`extension/manifest.json\`.
 - Stable signing ID: \`send-to-wheregoes@thomasewoolley.github.io\`.
-- Update manifest: \`https://thomaswoolley.co.uk/send-to-wheregoes/updates.json\`.
+- Update manifest: \`https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json\`.
 - ZIP produced: \`dist/send-to-wheregoes-1.2.1-unsigned.zip\`, with the seven extension files at the ZIP root.
 - The ZIP is **not signed**. Do not redistribute it as though it were a Mozilla-approved permanent add-on.
 
@@ -58,7 +58,7 @@ Initially, \`docs/updates.json\` has an empty updates array. After Mozilla signs
       "updates": [
         {
           "version": "1.2.2",
-          "update_link": "https://thomaswoolley.co.uk/send-to-wheregoes/send-to-wheregoes-1.2.2.xpi"
+          "update_link": "https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/send-to-wheregoes-1.2.2.xpi"
         }
       ]
     }
@@ -69,3 +69,7 @@ Initially, \`docs/updates.json\` has an empty updates array. After Mozilla signs
 Never point users to an unsigned XPI. Preserve the stable update URL and add-on ID: installed clients may otherwise lose the update path.
 
 See [SETUP_NEW_REPOSITORY.md](SETUP_NEW_REPOSITORY.md) for one-time GitHub Pages activation.
+
+## TLS hosting finding (9 October 2026)
+
+GitHub Pages successfully deployed this project. However, a separate GitHub-hosted HTTPS check rejected the inherited `thomaswoolley.co.uk` custom domain due to a certificate hostname mismatch. For safety, the extension update manifest uses the independent GitHub raw-file HTTPS host instead. We have not changed the owner's personal website TLS settings.
