@@ -1,0 +1,59 @@
+name: Verify extension and HTTPS updates
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Run extension tests
+        run: node tests/run-tests.cjs
+      - name: Rebuild unsigned submission package
+        run: python scripts/build_extension.py
+      - name: Verify live GitHub Pages HTTPS endpoints
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          from urllib.request import urlopen
+          from urllib.error import HTTPError, URLError
+
+          root = "https://thomaswoolley.co.uk/send-to-wheregoes/"
+          for name, token in [
+              ("updates.json", b"send-to-wheregoes@thomasewoolley.github.io"),
+              ("privacy.html", b"Send to WhereGoes"),
+          ]:
+              url = root + name
+              for attempt in range(5):
+                  try:
+                      with urlopen(url, timeout=20) as response:
+                          body = response.read()
+                          final_url = response.geturl()
+                          print(f"{name}: HTTP {response.status}, URL {final_url}, bytes {len(body)}")
+                          assert final_url.startswith("https://"), "Insecure redirect target"
+                          assert token in body, "Unexpected page response"
+                          if name.endswith(".json"):
+                              data = json.loads(body)
+                              assert "updates" in data["addons"]["send-to-wheregoes@thomasewoolley.github.io"]
+                          break
+                  except (HTTPError, URLError, AssertionError, ValueError, KeyError) as error:
+                      if attempt == 4:
+                          raise
+                      print(f"{name}: retry {attempt + 1} after {error}")
+                      time.sleep(10)
+          PY
