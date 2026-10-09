@@ -1,0 +1,11 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { margin: 0; min-width: 340px; }
+main { padding: 18px; }
+header { display: flex; align-items: center; gap: 9px; margin-bottom: 17px; }
+h1 { font-size: 18px; margin: 0; }
+label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
+textarea { display: block; box-sizing: border-box; width: 100%; padding: 10px; resize: vertical; border: 1px solid #848ca0; border-radius: 6px; font: 12px/1.5 monospace; }
+button { width: 100%; margin-top: 11px; padding: 10px; font-weight: 700; color: white; border: 0; border-radius: 6px; background: #35558f; cursor: pointer; }
+button:hover { background: #294475; }
+.footnote { font-size: 12px; line-height: 1.5; opacity: .75; margin-bottom: 0; }
+#error { color: #c25135; font-size: 13px; }

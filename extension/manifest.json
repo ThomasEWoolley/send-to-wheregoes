@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Send to WhereGoes",
+  "version": "1.2.1",
+  "description": "Trace a user-selected link using WhereGoes. Sends the chosen URL to WhereGoes only when requested.",
+  "permissions": [
+    "menus",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://wheregoes.com/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://wheregoes.com/*"
+      ],
+      "js": [
+        "wheregoes-fill.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Send a link to WhereGoes",
+    "default_popup": "popup.html",
+    "default_icon": "icon.svg"
+  },
+  "icons": {
+    "48": "icon.svg",
+    "96": "icon.svg"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "send-to-wheregoes@thomasewoolley.github.io",
+      "strict_min_version": "140.0",
+      "update_url": "https://thomaswoolley.co.uk/send-to-wheregoes/updates.json",
+      "data_collection_permissions": {
+        "required": [
+          "browsingActivity",
+          "websiteContent"
+        ]
+      }
+    }
+  }
+}

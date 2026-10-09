@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Send to WhereGoes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header><img src="icon.svg" width="30" height="30" alt=""><h1>Send to WhereGoes</h1></header>
+    <form id="send-form">
+      <label for="url-input">Link to trace</label>
+      <textarea id="url-input" rows="3" spellcheck="false" placeholder="Paste a web link" required></textarea>
+      <button type="submit">Trace with WhereGoes</button>
+    </form>
+    <p id="error" role="alert" hidden></p>
+    <p class="footnote">Opens WhereGoes in a new tab. Your link is submitted to their service, not opened in your browser.</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
