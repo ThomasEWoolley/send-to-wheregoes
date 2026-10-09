@@ -1,0 +1,73 @@
+name: Verify website DNS and TLS
+
+on:
+  push:
+    paths:
+      - ".github/workflows/verify-custom-domain.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check public DNS and HTTPS without bypassing certificate validation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import socket
+          import ssl
+          import urllib.request
+          import urllib.error
+
+          host = "thomaswoolley.co.uk"
+          targets = [
+              ("Personal website", "https://thomaswoolley.co.uk/"),
+              ("New project on custom domain", "https://thomaswoolley.co.uk/send-to-wheregoes/"),
+              ("Custom-domain update manifest", "https://thomaswoolley.co.uk/send-to-wheregoes/updates.json"),
+              ("Custom-domain privacy notice", "https://thomaswoolley.co.uk/send-to-wheregoes/privacy.html"),
+              ("Current Firefox update manifest", "https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json"),
+          ]
+          problems = []
+          try:
+              addresses = sorted(set(item[4][0] for item in socket.getaddrinfo(host, 443, proto=socket.IPPROTO_TCP)))
+              print("DNS", host, addresses, flush=True)
+          except Exception as exc:
+              problems.append("DNS lookup: " + repr(exc))
+              print("DNS FAILED:", repr(exc), flush=True)
+
+          try:
+              context = ssl.create_default_context()
+              with socket.create_connection((host, 443), timeout=12) as sock:
+                  with context.wrap_socket(sock, server_hostname=host) as secure:
+                      cert = secure.getpeercert()
+                      print("TLS VALID", host, "protocol:", secure.version(), "subject:", cert.get("subject"), "SAN:", cert.get("subjectAltName"), flush=True)
+          except Exception as exc:
+              problems.append("TLS certificate: " + repr(exc))
+              print("TLS FAILED:", repr(exc), flush=True)
+
+          for label, url in targets:
+              try:
+                  req = urllib.request.Request(url, headers={"User-Agent":"Send-to-WhereGoes-domain-audit/1.0"})
+                  with urllib.request.urlopen(req, timeout=18) as response:
+                      body = response.read(100000)
+                      print("URL", label, "HTTP", response.status, "final", response.url, "bytes(sample)", len(body), flush=True)
+                      if label == "Current Firefox update manifest":
+                          import json
+                          data = json.loads(body)
+                          assert "send-to-wheregoes@thomasewoolley.github.io" in data["addons"]
+                      if response.status != 200:
+                          problems.append(label + ": status " + str(response.status))
+              except Exception as exc:
+                  problems.append(label + ": " + repr(exc))
+                  print("URL FAILED", label, url, repr(exc), flush=True)
+
+          print("AUDIT RESULT", "PASS" if not problems else "ISSUES DETECTED", flush=True)
+          for problem in problems:
+              print("ISSUE:", problem, flush=True)
+          if problems:
+              raise SystemExit(1)
+          PY
