@@ -18,7 +18,7 @@
 - ZIP integrity check: passed.
 - Mozilla review and signature: **outstanding**.
 - Real Firefox and live WhereGoes tests: **outstanding**.
-- GitHub Pages: deployed, but the inherited custom domain failed certificate validation. Manifest update URL now uses GitHub's HTTPS raw-file service.
+- GitHub Pages: deployed; a certificate mismatch was initially detected on the inherited custom domain and then resolved by the owner. The Firefox manifest continues to use GitHub's independently validated HTTPS raw-file service.
 
 Archive bytes can vary with the Python/zlib toolchain despite identical source contents. The source and build steps are authoritative. No third-party package or licence has been added.
 
@@ -27,3 +27,7 @@ The update URL was corrected before Mozilla submission following a real HTTPS ce
 ## Validated hosting (9 October 2026)
 
 A GitHub-hosted Actions run verified that the new HTTPS update manifest and privacy notice return HTTP 200 with valid TLS. Build and 17 tests pass in CI: [run 37916854329](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37916854329).
+
+## DNS and TLS recheck (9 October 2026)
+
+The [independent domain audit](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37924109107) passed: DNS resolves to GitHub Pages; the certificate matches `thomaswoolley.co.uk` and `www.thomaswoolley.co.uk`; the personal site, project page, custom-domain update/privacy pages and the active GitHub-hosted update manifest all return HTTP 200. No manifest changes were necessary after this correction.

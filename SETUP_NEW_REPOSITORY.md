@@ -1,6 +1,6 @@
 # Hosting and Mozilla signing
 
-The repository is <https://github.com/ThomasEWoolley/send-to-wheregoes>. GitHub Pages was enabled and deployed on 9 October 2026. **The custom domain's TLS certificate currently does not validate** and must not be used as the Firefox update endpoint. To avoid affecting the personal website, the signed add-on will use a GitHub-hosted update manifest:
+The repository is <https://github.com/ThomasEWoolley/send-to-wheregoes>. GitHub Pages was enabled and deployed on 9 October 2026. An initial TLS certificate problem with the custom domain was subsequently fixed and verified by the [domain audit](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37924109107). The Firefox extension still uses the independent GitHub-hosted update manifest because that URL is already working and avoids changing its submission package:
 
 https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json
 

@@ -37,7 +37,7 @@ The add-on has a stable ID of `send-to-wheregoes@thomasewoolley.github.io`, with
 
 `https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json`
 
-GitHub Pages must still be activated for this repository using **Settings → Pages → Deploy from a branch → main → /docs**. The owner's separate user website uses the custom domain `thomaswoolley.co.uk`, so verify the actual project Pages URL and its HTTPS response before submitting the extension. The current `docs/updates.json` contains no releases, correctly avoiding the publication of an unsigned update. Any future `update_link` must point to a Mozilla-signed XPI.
+GitHub Pages is now enabled and [the project site](https://thomaswoolley.co.uk/send-to-wheregoes/) responds over valid HTTPS. A [GitHub-hosted check](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37924109107) on 9 October 2026 confirmed valid DNS, a matching TLS certificate and HTTP 200 for the project, its update manifest and privacy page. The extension's existing `update_url` remains on GitHub's separate `raw.githubusercontent.com` HTTPS host for stability. The current `docs/updates.json` contains no releases, correctly avoiding the publication of an unsigned update. Any future `update_link` must point to a Mozilla-signed XPI.
 
 A previous provisional update manifest exists in the owner's personal website repository; do not remove it until the new hosting has been verified and no installed clients depend on the old address. This project does not change the personal website.
 
@@ -52,3 +52,5 @@ Source release candidate **1.2.1**. Browser integration and Mozilla signing rema
 ## Automated verification
 
 The [GitHub Actions audit](.github/workflows/audit.yml) runs the Node tests, rebuilds the unsigned archive and checks the public update manifest and privacy notice from a hosted runner. The verified [9 October 2026 run](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37916854329) confirms HTTP 200 with valid HTTPS for both resources. The check is intentionally strict about valid HTTPS certificates. Mozilla signing and a real Firefox integration test remain separate requirements.
+
+**Domain recheck (9 October 2026):** DNS, certificate and website/project URLs passed an independently hosted audit. No browser security settings were changed. [Results](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37924109107).
