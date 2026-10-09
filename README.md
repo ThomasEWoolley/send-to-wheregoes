@@ -27,6 +27,10 @@ python scripts/build_extension.py
 
 The script generates `dist/send-to-wheregoes-1.2.1-unsigned.zip` with `manifest.json` at the ZIP root, as required for Mozilla submission. No packages are downloaded or installed. ZIP checksums may vary between zlib versions, so review source contents as well as the archive. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
 
+## Firefox compatibility
+
+Minimum supported Firefox version: **142.0**. Mozilla's `browser_specific_settings.gecko.data_collection_permissions` consent feature reached Firefox for Android in version 142, although desktop support began earlier. Setting the shared minimum to 142 avoids Mozilla's Android manifest compatibility warning. This add-on is intended for **desktop Firefox only**, and it deliberately omits `gecko_android` because Android usability has not been tested. The minimum version change does not widen the extension's permissions or affect its redirect behaviour. [Mozilla's browser-specific manifest documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings).
+
 ## Mozilla signing
 
 The ZIP is **unsigned** and is not permanently installable in standard Firefox. Submit it through [Mozilla's Developer Hub](https://addons.mozilla.org/developers/) as **unlisted** (self-distributed), then install the Mozilla-signed `.xpi` from Firefox's Add-ons Manager. Mozilla policy compliance, signing and end-to-end Firefox operation have not yet been independently confirmed.

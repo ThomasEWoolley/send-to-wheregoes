@@ -23,3 +23,5 @@
 **Declared update manifest:** https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json
 
 The public URLs depend on GitHub Pages activation and require a live HTTPS check. Mozilla determines policy compliance and signing eligibility.
+
+**Manifest compatibility fix (9 October 2026):** Increased `gecko.strict_min_version` from `140.0` to `142.0` to eliminate a validator warning concerning `data_collection_permissions`, introduced in Firefox for Android 142. The extension is intentionally desktop-only, and does not declare `gecko_android`. The stable add-on ID, data disclosures, host restrictions and update URL are unchanged. This package has not yet been Mozilla signed.

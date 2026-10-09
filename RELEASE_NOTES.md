@@ -31,3 +31,7 @@ A GitHub-hosted Actions run verified that the new HTTPS update manifest and priv
 ## DNS and TLS recheck (9 October 2026)
 
 The [independent domain audit](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37924109107) passed: DNS resolves to GitHub Pages; the certificate matches `thomaswoolley.co.uk` and `www.thomaswoolley.co.uk`; the personal site, project page, custom-domain update/privacy pages and the active GitHub-hosted update manifest all return HTTP 200. No manifest changes were necessary after this correction.
+
+## Firefox minimum version compatibility correction (9 October 2026)
+
+Mozilla's validator warned that the declared data consent permissions require Firefox for Android 142, despite the previous shared minimum version being 140. Changed `gecko.strict_min_version` to `142.0`. Desktop builds 140 and 141 are no longer eligible; Firefox 142+ is supported. The extension remains desktop-only since it does not opt in using `gecko_android`. No runtime code, add-on ID or update URL was changed. The source release candidate stays at 1.2.1 until Mozilla accepts its first submission.

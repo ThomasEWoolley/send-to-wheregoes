@@ -15,11 +15,14 @@ test('manifest is Firefox MV3 and uses a stable signing identity', () => {
 });
 test('newly submitted add-ons declare transmitted URL data', () => {
   assert.deepEqual(gecko.data_collection_permissions.required, ['browsingActivity','websiteContent']);
-  assert(Number.parseInt(gecko.strict_min_version, 10) >= 140);
+  assert(Number.parseInt(gecko.strict_min_version, 10) >= 142); // Android data consent schema begins in Firefox 142
 });
 test('unlisted updates use stable HTTPS manifest URL', () => {
   assert.equal(gecko.update_url, 'https://raw.githubusercontent.com/ThomasEWoolley/send-to-wheregoes/main/docs/updates.json');
   assert.equal(new URL(gecko.update_url).protocol, 'https:');
+});
+test('Android support is not advertised without mobile compatibility testing', () => {
+  assert.equal(manifest.browser_specific_settings.gecko_android, undefined);
 });
 test('the extension cannot access arbitrary destination websites', () => {
   assert.deepEqual(manifest.host_permissions, ['https://wheregoes.com/*']);
