@@ -51,4 +51,4 @@ Source release candidate **1.2.1**. Browser integration and Mozilla signing rema
 
 ## Automated verification
 
-The [GitHub Actions audit](.github/workflows/audit.yml) runs the Node tests, rebuilds the unsigned archive and checks the public update manifest and privacy notice from a hosted runner. The check is intentionally strict about valid HTTPS certificates. Mozilla signing and a real Firefox integration test remain separate requirements.
+The [GitHub Actions audit](.github/workflows/audit.yml) runs the Node tests, rebuilds the unsigned archive and checks the public update manifest and privacy notice from a hosted runner. The verified [9 October 2026 run](https://github.com/ThomasEWoolley/send-to-wheregoes/actions/runs/37916854329) confirms HTTP 200 with valid HTTPS for both resources. The check is intentionally strict about valid HTTPS certificates. Mozilla signing and a real Firefox integration test remain separate requirements.

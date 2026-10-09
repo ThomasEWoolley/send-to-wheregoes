@@ -1,4 +1,4 @@
-name: Verify extension and HTTPS updates
+name: Audit Firefox extension and HTTPS updates
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: node tests/run-tests.cjs
       - name: Rebuild unsigned submission package
         run: python scripts/build_extension.py
-      - name: Verify live GitHub Pages HTTPS endpoints
+      - name: Verify public GitHub HTTPS endpoints
         shell: bash
         run: |
           python - <<'PY'
